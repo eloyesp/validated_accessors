@@ -2,7 +2,7 @@ setup do
   class Foo
     extend ValidatedAccessors
     validated_accessor :bar, valid: [:two, :three]
-    validated_accessor :sym_bar, valid: [:two, :three] { |v| v.to_sym }
+    validated_accessor(:age, valid: (18..100)) { |a| a.to_i }
   end
   Foo.new
 end
@@ -23,6 +23,6 @@ test 'raise when you use assign invalid values' do |foo|
 end
 
 test 'enforce the type provided' do |foo|
-  foo.sym_bar = 'two'
-  assert foo.sym_bar == :two
+  foo.age = '22'
+  assert foo.age == 22
 end

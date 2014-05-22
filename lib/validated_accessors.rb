@@ -1,5 +1,22 @@
 # Copyright (C) 2014 Eloy Espinaco, Gastón Ramos
 
+# Extend a class with ValidatedAccessors to enable the functionality.
+#
+# @example
+#   class Foo
+#     extend ValidatedAccessors
+#
+#     validated_accessor :bar, valid: [:foo, :bar]
+#
+#     # a transformation can be applied to the accessor for consistency
+#
+#     validated_accessor(:age, valid: (18..100)) { |a| a.to_i }
+#   end
+#
+#   foo = Foo.new
+#   foo.bar = :foo # => error
+#   foo.age = '24'
+#   foo.age # => 24
 module ValidatedAccessors
 
   VERSION = "0.1.1"
