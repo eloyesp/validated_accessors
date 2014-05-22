@@ -11,6 +11,7 @@ module ValidatedAccessors
     end
 
     define_method "#{ attribute }=" do |value|
+      value = yield value if block_given?
       raise ArgumentError unless options[:valid].include? value
       instance_variable_set "@#{ attribute }", value
     end
