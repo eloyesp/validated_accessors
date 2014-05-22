@@ -2,7 +2,7 @@
 
 module ValidatedAccessors
 
-  VERSION = "0.0.1"
+  VERSION = "0.1"
 
   def validated_accessor attribute, options
 
