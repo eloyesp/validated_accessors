@@ -14,3 +14,9 @@ test 'let you assign valid values' do |foo|
   foo.bar = :two
   assert foo.bar == :two
 end
+
+test 'raise when you use assign invalid values' do |foo|
+  assert_raise ArgumentError do
+    foo.bar = :invalid
+  end
+end
