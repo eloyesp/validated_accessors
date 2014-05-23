@@ -1,24 +1,27 @@
-# ValidatedAccessors
+# ValidatedAccessors [![Gem Version](https://badge.fury.io/rb/validated_accessors.svg)](http://badge.fury.io/rb/validated_accessors) [![Build Status](https://travis-ci.org/eloyesp/validated_accessors.svg?branch=master)](https://travis-ci.org/eloyesp/validated_accessors) [![Code Climate](http://img.shields.io/codeclimate/github/eloyesp/validated_accessors.svg)](https://codeclimate.com/github/eloyesp/validated_accessors) [![Dependency Status](https://gemnasium.com/eloyesp/validated_accessors.svg)](https://gemnasium.com/eloyesp/validated_accessors)
 
-TODO: Write a gem description
+Attribute accessors with validation options so you notice when something
+is wrong earlier.
 
-## Installation
+```ruby
+class Foo
+  extend ValidatedAccessors
 
-Add this line to your application's Gemfile:
+  validated_accessor :bar, valid: [:foo, :bar]
 
-    gem 'validated_accessors'
+  # a transformation can be applied to the accessor for consistency
 
-And then execute:
+  validated_accessor(:age, valid: (18..100)) { |a| a.to_i }
+end
 
-    $ bundle
+foo = Foo.new
+foo.bar = :foo # => error
+foo.age = '24'
+foo.age # => 24
+```
 
-Or install it yourself as:
-
-    $ gem install validated_accessors
-
-## Usage
-
-TODO: Write usage instructions here
+And you can read the
+[docs](http://rdoc.info/github/eloyesp/validated_accessors/frames).
 
 ## Contributing
 
