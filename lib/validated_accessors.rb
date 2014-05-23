@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (C) 2014 Eloy Espinaco, Gastón Ramos
 
 # Extend a class with ValidatedAccessors to enable the functionality.
@@ -26,6 +27,14 @@ module ValidatedAccessors
     define_attribute_writter attribute, options, &block
   end
 
+  def check_valid_attribute attribute, value, options
+    unless options[:valid].include? value
+      raise ArgumentError,
+      "Invalid value: #{ value } for #{ attribute }."\
+      "(Valid values are: #{ options[:valid] })"
+    end
+  end
+
   private
 
   def define_attribute_reader attribute
@@ -37,11 +46,7 @@ module ValidatedAccessors
   def define_attribute_writter attribute, options, &block
     define_method "#{ attribute }=" do |value|
       value = yield value if block_given?
-      unless options[:valid].include? value
-        raise ArgumentError,
-          "Invalid value: #{ value } for #{ attribute }."\
-          "(Valid values are: #{ options[:valid] })"
-      end
+      self.class.check_valid_attribute attribute, value, options
       instance_variable_set "@#{ attribute }", value
     end
   end
